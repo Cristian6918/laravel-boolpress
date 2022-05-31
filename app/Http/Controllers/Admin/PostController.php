@@ -43,6 +43,9 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:250',
             'content' => 'required'
+        ], [
+            'title.required' => 'Title must be validate',
+            'content.required' => 'Content must be validate!'
         ]);
         $postData = $request->all();
         $newPost = new Post();
@@ -81,7 +84,7 @@ class PostController extends Controller
         if (!$post) {
             abort(404);
         }
-        return view('admin.posts.edit', compact('posts'));
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -94,11 +97,11 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate([
-            'title' => 'requiredd|max:250',
+            'title' => 'required|max:250',
             'content' => 'required'
         ], [
             'title.required' => 'Title must be validate',
-            'title.max' => 'Title must be max 255 chars!'
+            'title.required' => 'Content must be validate!'
         ]);
         $postData = $request->all();
 
@@ -106,7 +109,7 @@ class PostController extends Controller
         $post->slug = Post::convertToSlug($post->title);
 
         $post->update();
-        return view('admin.posts.index');
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -120,6 +123,6 @@ class PostController extends Controller
         if ($post) {
             $post->delete();
         }
-        return view('admin.posts.index');
+        return redirect()->route('admin.posts.index');
     }
 }
