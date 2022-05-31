@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Post;
-use Stringable;
+
 
 class PostController extends Controller
 {
