@@ -53,6 +53,7 @@ class PostController extends Controller
 
 
         $newPost->save();
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -65,8 +66,8 @@ class PostController extends Controller
     {
         if (!$post) {
             abort(404);
-            return view('admin.posts.show', compact('posts'));
         }
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
