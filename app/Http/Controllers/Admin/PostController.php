@@ -41,7 +41,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'requiredd|max:250',
+            'title' => 'required|max:250',
             'content' => 'required'
         ]);
         $postData = $request->all();
@@ -95,6 +95,9 @@ class PostController extends Controller
         $request->validate([
             'title' => 'requiredd|max:250',
             'content' => 'required'
+        ], [
+            'title.required' => 'Title must be validate',
+            'title.max' => 'Title must be max 255 chars!'
         ]);
         $postData = $request->all();
 
@@ -111,8 +114,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        if ($post) {
+            $post->delete();
+        }
+        return view('admin.posts.index');
     }
 }

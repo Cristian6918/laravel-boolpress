@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,11 +25,10 @@ Auth::routes();
 
 Route::middleware('auth')
     ->namespace('Admin')
-    ->name('admin')
+    ->name('admin.')
     ->prefix('admin')
     ->group(function () {
-        Route::get('/', 'HomeController@index')
-            ->name('index');
+        Route::get('/', 'HomeController@index')->name('index');
         Route::resource('/posts', 'PostController');
     });
 
