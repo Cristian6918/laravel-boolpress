@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Post;
 
@@ -46,15 +47,11 @@ class PostController extends Controller
         $postData = $request->all();
         $newPost = new Post();
         $newPost->fill($postData);
-        $slug = Str::slug($newPost->title);
-        $postFound = Post::where('slug', $alternativeSlug)->first();
-        $counter = 1;
-        while ($postFound) {
-            $alternativeSlug = $slug . '_' . $counter;
-            $counter++;
-            $postFound = Post::where('slug', $alternativeSlug)->first();
-        }
-        $newPost->slug = $alternativeSlug;
+
+        $newPost->slug = Post::convertToSlug($newPost->title);
+
+
+
         $newPost->save();
     }
 
@@ -64,9 +61,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        if (!$post) {
+            abort(404);
+            return view('admin.posts.show', compact('posts'));
+        }
     }
 
     /**
@@ -75,9 +75,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        if (!$post) {
+            abort(404);
+        }
+        return view('admin.posts.edit', compact('posts'));
     }
 
     /**
@@ -87,9 +90,19 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'requiredd|max:250',
+            'content' => 'required'
+        ]);
+        $postData = $request->all();
+
+        $post->fill($postData);
+        $post->slug = Post::convertToSlug($post->title);
+
+        $post->update();
+        return view('admin.posts.index');
     }
 
     /**
