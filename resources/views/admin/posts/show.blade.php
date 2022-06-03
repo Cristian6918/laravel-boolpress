@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    <h1>{{ $post->category->name }}</h1>
     <div class="card mb-4">
         <div class="card-header">
             {{ $post->slug }}
