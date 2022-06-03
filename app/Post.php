@@ -7,7 +7,13 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'content', 'slug'];
+    protected $fillable = ['title', 'content', 'slug', 'category_id '];
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
+
 
     //Take a string as input and return a unique slug version
     public static function convertToSlug($title)
