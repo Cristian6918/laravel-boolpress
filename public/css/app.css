@@ -10966,3 +10966,7 @@ a.text-dark:focus {
   color: #4dc0b5;
 }
 
+.post-tags span {
+  margin: 10px;
+}
+

@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h3 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ $post->content }}</p>
-                    <div class='post-tags d-flex justify-content-around'>
+                    <div class='post-tags d-flex justify-content-start'>
                         @foreach ($post->tags as $tag)
                             <span>{{ $tag->name }}</span>
                         @endforeach

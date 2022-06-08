@@ -11,10 +11,21 @@
                     <h5 class="card-title">{{ $post->category->name }}</h5>
                     <h3 class="card-title">{{ $post->title }}</h3>
                     <p class="card-text">{{ $post->content }}</p>
+                    <div class='post-tags d-flex justify-content-start'>
+                        @foreach ($post->tags as $tag)
+                            <span>[{{ $tag->name }}]</span>
+                        @endforeach
+                    </div>
 
                     <div class="ct-buttons">
                         <a href="{{ route('admin.posts.show', $post) }}"
                             class="btn btn-primary justify-self-end""><i class="
+
+
+
+
+
+
 
 
                         fa-regular fa-eye"></i> Show</a>
