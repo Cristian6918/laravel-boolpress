@@ -51,6 +51,24 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="mb-3">
+
+                <h5>Tags</h5>
+                @foreach ($tags as $tag)
+                    <input class="form-check-input" type="checkbox" value="{{ $tag->id }}" name='tags[]'
+                        {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }} />
+                    <div class="form-check-label">{{ $tag->name }}</div>
+                @endforeach
+                @error('tags[]')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+
+
+
+
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
             <a href="{{ route('admin.posts.index') }}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>
                 Back</a>

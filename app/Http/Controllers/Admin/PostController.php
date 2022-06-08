@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 use App\Post;
 use App\Category;
+use App\Tag;
 
 
 class PostController extends Controller
@@ -31,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -45,18 +47,25 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:250',
             'content' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags[]' => 'exists:tags,id'
         ], [
             'title.required' => 'Title must be validate',
             'content.required' => 'Content must be validate!',
-            'category_id.required' => "Select a category"
+            'category_id.required' => "Select a category",
+            'tags[]' => "Tag doesn't exist"
         ]);
         $postData = $request->all();
         $newPost = new Post();
         $newPost->fill($postData);
 
         $newPost->slug = Post::convertToSlug($newPost->title);
+        $newPost->save();
 
+
+        if (array_key_exists('tags', $postData)) {
+            $newPost->tags()->sync($postData['tags']);
+        }
 
 
         $newPost->save();
@@ -89,8 +98,9 @@ class PostController extends Controller
         if (!$post) {
             abort(404);
         }
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.edit', compact(['post', 'categories']));
+        return view('admin.posts.edit', compact(['post', 'categories', 'tags']));
     }
 
     /**
@@ -104,15 +114,23 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|max:250',
-            'content' => 'required'
+            'content' => 'required',
+            'tags' => 'exists:tags,id'
         ], [
             'title.required' => 'Title must be validate',
-            'title.required' => 'Content must be validate!'
+            'title.required' => 'Content must be validate!',
+            'tags' => "Tag doesn't exist"
         ]);
         $postData = $request->all();
 
         $post->fill($postData);
         $post->slug = Post::convertToSlug($post->title);
+
+        $post->update();
+
+        if (array_key_exists('tags', $postData)) {
+            $post->tags()->sync($postData['tags']);
+        }
 
         $post->update();
         return redirect()->route('admin.posts.index');
@@ -127,6 +145,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         if ($post) {
+            $post->tags()->sync([]);
             $post->delete();
         }
         return redirect()->route('admin.posts.index');

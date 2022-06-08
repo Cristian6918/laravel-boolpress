@@ -9,6 +9,11 @@
             <div class="card-body">
                 <h3 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ $post->content }}</p>
+                    <div class='post-tags d-flex justify-content-around'>
+                        @foreach ($post->tags as $tag)
+                            <span>{{ $tag->name }}</span>
+                        @endforeach
+                    </div>
                     <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i> Back</a>
             </div>
