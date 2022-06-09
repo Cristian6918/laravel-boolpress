@@ -10,7 +10,7 @@ require('./bootstrap');
 
 window.axios = require('axios');
 
-window.axios.get('http://127.0.0.1:8000/api/posts').then(results => { console.log(results) }).catch(e => { console.log(e) });
+// window.axios.get('http://127.0.0.1:8000/api/posts').then(results => { console.log(results) }).catch(e => { console.log(e) });
 window.Vue = require('vue');
 
 /**
