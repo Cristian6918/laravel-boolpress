@@ -1,11 +1,11 @@
 <template>
-<div>
-   <h1> App Component Work In Progress</h1>
-</div>
+
+   <router-view></router-view>
 
 </template>
 
 <script>
+
 export default {
     name:'AppComponent'
 
