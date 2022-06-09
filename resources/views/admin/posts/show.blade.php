@@ -6,6 +6,10 @@
             <div class="card-header">
                 {{ $post->slug }}
             </div>
+
+            <img src="{{ asset('storage/' . $post->cover) }}" class="card-img-top " alt="{{ $post->slug }}">
+
+
             <div class="card-body">
                 <h3 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ $post->content }}</p>
