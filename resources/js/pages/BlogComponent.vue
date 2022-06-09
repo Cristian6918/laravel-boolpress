@@ -1,26 +1,20 @@
 <template>
   <div>
-
       <div class="container">
           <div class="row">
-              <div class="col-12 text-center">Home</div>
+              <div class="col-12 text-center">My Posts</div>
           </div>
       </div>
   </div>
 </template>
 
 <script>
-
-import HeaderComponent from '../components/HeaderComponent.vue';
-
-
 export default {
-    name:'HomeComponent',
-
+    name:'BlogComponent'
 
 }
 </script>
 
-<style  >
+<style>
 
 </style>
