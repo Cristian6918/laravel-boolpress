@@ -1,22 +1,22 @@
 <template>
-<div class='row'>
-
-        <card-component :post='post' v-for='post in posts' :key='post.slug'/>
-
-</div>
-
+  <div class="row justify-content-around">
+    <card-component
+      :post="post"
+      v-for="post in posts"
+      :key="post.slug"
+      :slug="post.slug"
+    />
+  </div>
 </template>
 
 <script>
-import CardComponent from './CardComponent.vue'
+import CardComponent from "./CardComponent.vue";
 export default {
   components: { CardComponent },
-    name:'CardListComponent',
-    props:['posts']
-
-}
+  name: "CardListComponent",
+  props: ["posts"],
+};
 </script>
 
 <style>
-
 </style>

@@ -19,16 +19,7 @@
 
                     <div class="ct-buttons">
                         <a href="{{ route('admin.posts.show', $post) }}"
-                            class="btn btn-primary justify-self-end""><i class="
-
-
-
-
-
-
-
-
-                        fa-regular fa-eye"></i> Show</a>
+                            class="btn btn-primary justify-self-end""><i class=" fa-regular fa-eye"></i> Show</a>
                         <a href=" {{ route('admin.posts.edit', $post) }}" class="btn btn-success"><i
                                 class="fa-solid fa-pen"></i> Edit</a>
                         <form action=" {{ route('admin.posts.destroy', $post) }}" method="post">
