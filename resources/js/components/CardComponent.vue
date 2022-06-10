@@ -2,7 +2,7 @@
   <div class="card ct-card" style="width: 18rem">
     <div class="card-body d-flex flex-column justify-content-between">
       <h3 class="card-title">{{ post.title }}</h3>
-      <img v-if="post.cover" :src="'storage/' + post.cover" alt="post.slug" />
+      <img v-if="post.cover" :src="'/storage/' + post.cover" alt="post.slug" />
       <p class="card-text">{{ post.content }}</p>
     </div>
     <router-link
